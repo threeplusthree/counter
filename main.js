@@ -1,5 +1,5 @@
 var totalnumberofmembers=16;
-var totalnumberofversions=6;
+var totalnumberofversions=7;
 var totalnumberofconditions=3;
 var cond=[false,false,false]; //008 near 080; 052 near 097; 087 sleeping
 var l=[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
@@ -150,7 +150,12 @@ function update(){
   }
   if(l[8]){
     if(vers<=0)re+=1;
-    else im+=1;
+    else{
+      if(vers<=5)im+=1;
+      else{
+        im-=1;
+        re+=1;
+      }
   }
   if(l[9]){
     if(vers<=0)re+=1;
@@ -199,12 +204,13 @@ function update(){
   if(im==1){
     a+='+i';
   }
+  if(im==-1){
+    a+='-i';
+  }
   if(kp==1){
     a+='+κ';
   }
-  if(re==0&&(pi!=0||im!=0||kp!=0)){
-    a=a.slice(2);
-  }
+  if(a[0]=='+')a=a.slice(2);
   document.getElementById('num').innerHTML=c.toString();
   document.getElementById('value').innerHTML=a;
   t=Math.sqrt((re+pi*Math.PI+kp*kappa)**2+im**2);
@@ -251,5 +257,5 @@ document.getElementById("theme").addEventListener('click',(event)=>{
   else settheme("Light");
 })
 
-setversion(5);
+setversion(6);
 settheme("Dark");
